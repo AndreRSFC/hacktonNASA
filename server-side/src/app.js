@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 import mongoose from "mongoose";
 import processLocation from '../lib/locations';
 
@@ -25,6 +26,7 @@ class App {
   }
 
   middlewares() {
+    this.express.use(cors());
     this.express.use(express.json());
   }
 
