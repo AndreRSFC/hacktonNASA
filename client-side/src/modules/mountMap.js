@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Map from "../components/map";
 import ButtonMode from "../components/buttonMode"
-import StarMode from "../components/starMode";
 
 const  MyFancyComponent = () => {
   const [isMarkerShown, setIsMarkerShown] = useState();
