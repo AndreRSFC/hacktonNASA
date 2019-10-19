@@ -11,7 +11,7 @@ routes.get("/", (req, res) => {
 routes.get("/observatories", ObervatoryController.index);
 routes.get("/observatories/:id", ObervatoryController.show);
 routes.post("/observatories", ObervatoryController.store);
-routes.put("/observatories/:symbol", ObervatoryController.update);
+routes.put("/observatories/:name", ObervatoryController.update);
 
 
 export default routes;

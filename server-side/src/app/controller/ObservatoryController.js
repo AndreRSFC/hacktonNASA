@@ -22,10 +22,10 @@ class ObservatoryController {
     }
 
     async update(req, res) {
-        const { symbol } = req.params;
+        const { name } = req.params;
         const { body } = req;
 
-        const observatory = await Observatory.findOneAndUpdate({ symbol }, body, {
+        const observatory = await Observatory.findOneAndUpdate({ name }, body, {
             new: true
         });
 
