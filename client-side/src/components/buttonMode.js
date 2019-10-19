@@ -5,17 +5,18 @@ import styled from "styled-components";
 const ButtonMode = styled.button`
     background-color: black;
     position: fixed;
+    left: 40px;
+    bottom: 40px;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    top: 100px;
-    right: 0;
     z-index: 11;
-    height: 40px;
-    width: 120px;
+    padding: 10px 20px;
     border: none;
     outline: none;
+    cursor: pointer;
     `; 
 
 export default ButtonMode;

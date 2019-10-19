@@ -25,22 +25,27 @@ const Maps = compose(
   withGoogleMap
 )((props) => (
   <GoogleMap defaultZoom={8} defaultCenter={{ lat: -19.8157, lng: -43.9542 }} >
-    {props.isMarkerShown &&
+    <Marker
+        position={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }}
+        icon={{
+          url: "https://img.icons8.com/material/48/000000/marker--v1.png"
+        }}
+        onClick={() => {}}
+        name={'Current location'}
+    />
+    { props.isMarkerShown &&
       props.location.map((location, index) => {
         return (
           <>
-            {location.isSat ?
             <Marker
               position={{ lat: location.lat, lng: location.lng }}
               onClick={() => window.alert("satelite x")}
               key={index}
               style={{zIndex: 20}}
+              icon={{
+                url: "https://img.icons8.com/material/48/000000/satellite.png"
+              }}
             />
-            :
-            <Marker
-              position={{ lat: location.lat, lng: location.lng }}
-              key={index}
-            />}
           </>
         );
       })}
