@@ -29,11 +29,9 @@ class App {
   }
 
   async cronJob() {
-    // cron.schedule("*/30 * * * *", () => {
-    //   await location.default();
-    // });
-
-    await processLocation();
+    cron.schedule("0 0 * 1 5", async () => {
+      await processLocation();
+    });
   }
 
   routes() {
