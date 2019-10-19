@@ -8,8 +8,6 @@ import {
   OverlayView
 } from "react-google-maps";
 
-import StarMode from "./starMode";
-
 const getPixelPositionOffset = (width, height) => ({
   x: -(width / 2),
   y: -(height / 2),
