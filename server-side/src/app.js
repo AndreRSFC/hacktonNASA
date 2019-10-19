@@ -1,5 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
+import processLocation from '../lib/locations';
+
+import * as cron from "node-cron";
 
 import routes from "./routes";
 import databaseConfig from "./config/database";
@@ -11,6 +14,7 @@ class App {
     this.database();
     this.middlewares();
     this.routes();
+    this.cronJob();
   }
 
   database() {
@@ -22,6 +26,14 @@ class App {
 
   middlewares() {
     this.express.use(express.json());
+  }
+
+  async cronJob() {
+    // cron.schedule("*/30 * * * *", () => {
+    //   await location.default();
+    // });
+
+    await processLocation();
   }
 
   routes() {

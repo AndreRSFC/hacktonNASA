@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const ObservatoryLocationsSchema = new mongoose.Schema(
     {
-        observtorySymbol: {
+        observatorySymbol: {
             type: String,
             required: true,
             unique: true,
@@ -11,7 +11,7 @@ const ObservatoryLocationsSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        longitute: {
+        longitude: {
             type: Number,
             required: true,
         },
