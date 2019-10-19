@@ -4,8 +4,16 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  OverlayView
 } from "react-google-maps";
+
+import StarMode from "./starMode";
+
+const getPixelPositionOffset = (width, height) => ({
+  x: -(width / 2),
+  y: -(height / 2),
+})
 
 const Maps = compose(
   withProps({
@@ -18,15 +26,24 @@ const Maps = compose(
   withScriptjs,
   withGoogleMap
 )((props) => (
-  <GoogleMap defaultZoom={8} defaultCenter={{ lat: -19.8157, lng: -43.9542 }}>
+  <GoogleMap defaultZoom={8} defaultCenter={{ lat: -19.8157, lng: -43.9542 }} >
     {props.isMarkerShown &&
       props.location.map((location, index) => {
         return (
-          <Marker
-            position={{ lat: location.lat, lng: location.lng }}
-            //onClick={props.onMarkerClick}
-            key={index}
-          />
+          <>
+            {location.isSat ?
+            <Marker
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={() => window.alert("satelite x")}
+              key={index}
+              style={{zIndex: 20}}
+            />
+            :
+            <Marker
+              position={{ lat: location.lat, lng: location.lng }}
+              key={index}
+            />}
+          </>
         );
       })}
   </GoogleMap>
