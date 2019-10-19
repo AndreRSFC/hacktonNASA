@@ -1,40 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Map from "../components/map";
+import ButtonMode from "../components/buttonMode"
+import StarMode from "../components/starMode";
 
-class MyFancyComponent extends React.PureComponent {
-  state = {
-    isMarkerShown: false
-  };
+const  MyFancyComponent = () => {
+  const [isMarkerShown, setIsMarkerShown] = useState();
+  const [handleClick, setHandleClick] = useState(false);
 
-  componentDidMount() {
-    this.delayedShowMarker();
-  }
+  useEffect(()=> delayedShowMarker()); 
 
-  delayedShowMarker = () => {
+  const delayedShowMarker = () => {
     setTimeout(() => {
-      this.setState({ isMarkerShown: true });
+      setIsMarkerShown( true );
     }, 3000);
   };
 
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false });
-    this.delayedShowMarker();
+  const handleMarkerClick = () => {
+    setIsMarkerShown( false );
+    delayedShowMarker();
   };
 
-  render() {
     const location = [
-      { lat: -19.8157, lng: -43.9542 },
-      { lat: -19.0157, lng: -43.8542 },
-      { lat: -19.3157, lng: -43.9549 }
+      { lat: -19.8157, lng: -43.9542, currentUser : true },
+      { lat: -19.0157, lng: -43.8542, isSat: true },
+      { lat: -19.3157, lng: -43.9549, isSat: true }
     ];
 
     return (
-      <Map
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
-        location={location}
-      />
+      <>
+        <ButtonMode onClick={ () => setHandleClick(!handleClick)}> Mudar </ButtonMode>
+        <Map
+          isMarkerShown={isMarkerShown}
+          onMarkerClick={handleMarkerClick}
+          location={location.filter((item) => handleClick ? item : item.currentUser  )}
+          style={{backgroundColor: "black"}}
+        />
+      </>
     );
-  }
 }
 export default MyFancyComponent;
