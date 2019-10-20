@@ -11,9 +11,9 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/observatories", ObservatoryController.index);
-routes.get("/observatories/:id", ObservatoryController.show);
+routes.get("/observatories/:symbol", ObservatoryController.show);
 routes.post("/observatories", ObservatoryController.store);
-routes.put("/observatories/:name", ObservatoryController.update);
+routes.put("/observatories/:symbol", ObservatoryController.update);
 
 routes.get("/locations", ObservatoryLocationsController.index);
 routes.get("/locations/:id", ObservatoryLocationsController.show);

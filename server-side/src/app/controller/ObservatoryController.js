@@ -8,8 +8,9 @@ class ObservatoryController {
     }
 
     async show(req, res) {
-        const { id } = req.params;
-        const observatory = await Observatory.findById(id);
+        const { symbol } = req.params;
+
+        const observatory = await Observatory.findOne({symbol});
 
         return res.json(observatory);
     }
@@ -22,10 +23,10 @@ class ObservatoryController {
     }
 
     async update(req, res) {
-        const { name } = req.params;
+        const { symbol } = req.params;
         const { body } = req;
 
-        const observatory = await Observatory.findOneAndUpdate({ name }, body, {
+        const observatory = await Observatory.findOneAndUpdate({ symbol }, body, {
             new: true
         });
 
