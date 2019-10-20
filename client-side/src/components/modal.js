@@ -18,8 +18,11 @@ const Modal = ({ handleClose, showItem, children, items }) => {
         display: flex;
         flex-direction: column;
         background: white;
-        width: 80%;
-        height: 50%;
+        box-sizzing: border-box;
+        width: 700px;
+        height: 400px;
+        overflow-y: scroll;
+        box-sizing: border-box;
         top:50%;
         left:50%;
         border-radius: 14px;
@@ -38,10 +41,16 @@ const Modal = ({ handleClose, showItem, children, items }) => {
         border-radius: 20px;
         background-color: white;
         color: black;
-        margin-top: 20px 0;
+        margin-top: 20px;
     `;
 
     const Title = styled.h2`
+        color: black;
+        font-size: 20px;
+        margin: 20px auto 0;
+    `;
+
+    const Title1 = styled.h2`
         color: black;
         font-size: 20px;
         margin: 0 auto;
@@ -58,13 +67,18 @@ const Modal = ({ handleClose, showItem, children, items }) => {
           <Card>
             {children}
             {console.log(items ? items.properties[0] : null)}
-            <Title>{items? items.name : "Sem nome explicito"}</Title>
-            {console.log(items)}
+            <Title1>{items? items.name : "Sem nome explicito"}</Title1>
+            <Title>Description</Title>
             {items && items.properties[0] ?
-            <Description>{items.properties[0].description}</Description> :
+            <>
+            <Description>{items.properties[0].description}</Description> 
+            <Title>Release Date</Title>
+            <Description>{items.properties[0].releaseDate}</Description>    
+            </>
+            :
             <Description>"Sem descricao aparente"</Description>
             }
-            <Button onClick={handleClose}>Fechar modal</Button>
+            <Button onClick={handleClose}>Close</Button>
           </Card>
         </Overlay>
         : null
