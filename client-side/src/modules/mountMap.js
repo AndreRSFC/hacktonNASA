@@ -6,8 +6,29 @@ const  MyFancyComponent = () => {
   const [isMarkerShown, setIsMarkerShown] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [handleClick, setHandleClick] = useState(false);
+  const [locations, setLocations] = useState();
+  const [data, setData] = useState();
 
-  useEffect(()=> {delayedShowMarker(); initialize();}); 
+  useEffect(()=> {
+    delayedShowMarker();
+    initialize();
+    
+    fetch("http://localhost:3030/locations")
+      .then(response => response.json())
+        .then(data => setLocations(data))
+      .catch(err => console.log(err))
+
+    fetch("http://localhost:3030/observatories")
+      .then(response => response.json())
+        .then(data => locations.map((item)=>
+          data.map((content)=>{
+            if(item.symbol === content.item){
+              setData({location: item, data: content})
+            }
+          })
+        ))
+      .catch(err => console.log(err))
+  }); 
 
   const delayedShowMarker = () => {
     setTimeout(() => {
@@ -19,11 +40,6 @@ const  MyFancyComponent = () => {
     setIsMarkerShown( false );
     delayedShowMarker();
   };
-
-    const location = [
-      { lat: -19.0157, lng: -43.8542, isSat: true },
-      { lat: -19.3157, lng: -43.9549, isSat: true }
-    ];
 
     function initialize() {
       if (navigator.geolocation) {
@@ -40,7 +56,7 @@ const  MyFancyComponent = () => {
         <Map
           isMarkerShown={isMarkerShown}
           onMarkerClick={handleMarkerClick}
-          location={location.filter((item) => handleClick ? item : item.currentUser  )}
+          location={handleClick ? data.location : null}
           currentLocation={currentLocation}
           style={{backgroundColor: "black"}}
         />

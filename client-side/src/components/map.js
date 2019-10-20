@@ -33,12 +33,12 @@ const Maps = compose(
         onClick={() => {}}
         name={'Current location'}
     />
-    { props.isMarkerShown &&
+    { props.isMarkerShown && props.location &&
       props.location.map((location, index) => {
         return (
           <>
             <Marker
-              position={{ lat: location.lat, lng: location.lng }}
+              position={{ lat: location.latitude, lng: location.longitude }}
               onClick={() => window.alert("satelite x")}
               key={index}
               style={{zIndex: 20}}
