@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Map from "../components/map";
-import ButtonMode from "../components/buttonMode"
+import ButtonMode from "../components/buttonMode";
+import Modal from "../components/modal";
 
 const  MyFancyComponent = () => {
   const [isMarkerShown, setIsMarkerShown] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [handleClick, setHandleClick] = useState(false);
   const [locations, setLocations] = useState();
-  const [data, setData] = useState();
+  const [showItem, setShowItem] = useState(false);
 
   useEffect(()=> {
     delayedShowMarker();
@@ -17,18 +18,7 @@ const  MyFancyComponent = () => {
       .then(response => response.json())
         .then(data => setLocations(data))
       .catch(err => console.log(err))
-
-    fetch("http://localhost:3030/observatories")
-      .then(response => response.json())
-        .then(data => locations.map((item)=>
-          data.map((content)=>{
-            if(item.symbol === content.item){
-              setData({location: item, data: content})
-            }
-          })
-        ))
-      .catch(err => console.log(err))
-  }); 
+  })
 
   const delayedShowMarker = () => {
     setTimeout(() => {
@@ -41,24 +31,41 @@ const  MyFancyComponent = () => {
     delayedShowMarker();
   };
 
+  const showItemDetails = () => {
+    setShowItem( true );
+  };
+
+  const hideItemDetails = () => {
+    setShowItem( false );
+  };
+
     function initialize() {
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position){
             setCurrentLocation({lat:position.coords.latitude, lng:position.coords.longitude})
          });
       } 
-   
    }
+
+
 
     return (
       <>
+        <Modal
+          show={showItem}
+          handleClose={hideItemDetails}
+        >
+          <div>ai</div>
+          <div>ui</div>
+        </Modal>
         <ButtonMode onClick={ () => setHandleClick(!handleClick)}>Mostrar satelites</ButtonMode>
         <Map
           isMarkerShown={isMarkerShown}
           onMarkerClick={handleMarkerClick}
-          location={handleClick ? data.location : null}
+          location={handleClick ? locations : null}
           currentLocation={currentLocation}
           style={{backgroundColor: "black"}}
+          itemDetails={showItemDetails}
         />
       </>
     );

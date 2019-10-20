@@ -39,7 +39,7 @@ const Maps = compose(
           <>
             <Marker
               position={{ lat: location.latitude, lng: location.longitude }}
-              onClick={() => window.alert("satelite x")}
+              onClick={props.itemDetails}
               key={index}
               style={{zIndex: 20}}
               icon={{
