@@ -36,7 +36,7 @@ const Maps = compose(
               position={{ lat: location.latitude, lng: location.longitude }}
               onClick={() => fetch(`http://localhost:3030/observatories/${location.observatorySymbol}`)
                              .then(response => response.json())
-                             .then(data => console.log(data))
+                             .then(data => {props.itemDetails(); props.data(data)})
                       }
               key={index}
               style={{zIndex: 20}}

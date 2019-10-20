@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Map from "../components/map";
 import ButtonMode from "../components/buttonMode"
+import Modal from "../components/modal";
 
 const  MyFancyComponent = () => {
   const [isMarkerShown, setIsMarkerShown] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [handleClick, setHandleClick] = useState(false);
   const [locations, setLocations] = useState();
+  const [showItem, setShowItem] = useState(false);
+  const [data, setData] = useState();
 
   useEffect(()=> {
     delayedShowMarker();
@@ -16,7 +19,7 @@ const  MyFancyComponent = () => {
       .then(response => response.json())
         .then(data => setLocations(data))
       .catch(err => console.log(err))
-  }); 
+  },[]); 
 
   const delayedShowMarker = () => {
     setTimeout(() => {
@@ -40,6 +43,11 @@ const  MyFancyComponent = () => {
 
     return (
       <>
+        <Modal
+          showItem={showItem}
+          handleClose={()=>setShowItem(!showItem)}
+          items={data}
+        />
         <ButtonMode onClick={ () => setHandleClick(!handleClick)}>Mostrar satelites</ButtonMode>
         <Map
           isMarkerShown={isMarkerShown}
@@ -47,6 +55,8 @@ const  MyFancyComponent = () => {
           location={handleClick ? locations : null}
           currentLocation={currentLocation}
           style={{backgroundColor: "black"}}
+          itemDetails={()=>setShowItem(!showItem)}
+          data={(items)=>setData(items)}
         />
       </>
     );
