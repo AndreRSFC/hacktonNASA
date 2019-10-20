@@ -8,11 +8,6 @@ import {
   OverlayView
 } from "react-google-maps";
 
-const getPixelPositionOffset = (width, height) => ({
-  x: -(width / 2),
-  y: -(height / 2),
-})
-
 const Maps = compose(
   withProps({
     googleMapURL:
@@ -39,7 +34,10 @@ const Maps = compose(
           <>
             <Marker
               position={{ lat: location.latitude, lng: location.longitude }}
-              onClick={() => window.alert("satelite x")}
+              onClick={() => fetch(`http://localhost:3030/observatories/${location.observatorySymbol}`)
+                             .then(response => response.json())
+                             .then(data => console.log(data))
+                      }
               key={index}
               style={{zIndex: 20}}
               icon={{
