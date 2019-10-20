@@ -21,14 +21,17 @@ const Modal = ({ handleClose, showItem, children, items }) => {
         box-sizzing: border-box;
         width: 700px;
         height: 400px;
-        overflow-y: scroll;
         box-sizing: border-box;
         top:50%;
         left:50%;
         border-radius: 14px;
-        padding: 20px 15px;
+        padding: 30px 30px;
         transform: translate(-50%,-50%);
-        overflowY: scroll;
+    `;
+
+    const Item = styled.div`
+        overflow-y: scroll;
+        text-align: center;    
     `;
 
     const Button = styled.button`
@@ -65,6 +68,7 @@ const Modal = ({ handleClose, showItem, children, items }) => {
      return showItem ?  
         <Overlay>
           <Card>
+            <Item>  
             {children}
             {console.log(items ? items.properties[0] : null)}
             <Title1>{items? items.name : "Sem nome explicito"}</Title1>
@@ -79,6 +83,7 @@ const Modal = ({ handleClose, showItem, children, items }) => {
             <Description>"Sem descricao aparente"</Description>
             }
             <Button onClick={handleClose}>Close</Button>
+            </Item>
           </Card>
         </Overlay>
         : null
