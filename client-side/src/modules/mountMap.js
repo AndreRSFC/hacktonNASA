@@ -7,7 +7,6 @@ const  MyFancyComponent = () => {
   const [currentLocation, setCurrentLocation] = useState();
   const [handleClick, setHandleClick] = useState(false);
   const [locations, setLocations] = useState();
-  const [data, setData] = useState();
 
   useEffect(()=> {
     delayedShowMarker();
@@ -16,17 +15,6 @@ const  MyFancyComponent = () => {
     fetch("http://localhost:3030/locations")
       .then(response => response.json())
         .then(data => setLocations(data))
-      .catch(err => console.log(err))
-
-    fetch("http://localhost:3030/observatories")
-      .then(response => response.json())
-        .then(data => locations.map((item)=>
-          data.map((content)=>{
-            if(item.symbol === content.item){
-              setData({location: item, data: content})
-            }
-          })
-        ))
       .catch(err => console.log(err))
   }); 
 
@@ -56,7 +44,7 @@ const  MyFancyComponent = () => {
         <Map
           isMarkerShown={isMarkerShown}
           onMarkerClick={handleMarkerClick}
-          location={handleClick ? data.location : null}
+          location={handleClick ? locations : null}
           currentLocation={currentLocation}
           style={{backgroundColor: "black"}}
         />
